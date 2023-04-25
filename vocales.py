@@ -1,5 +1,5 @@
-# Función para mostrar la ventana de verificar vocales
-
+# clase para mostrar la ventana de verificar vocales
+# Clase para mostrar la ventana de verificar vocales
 class VerificacionesDecorator:
     def __init__(self, funcion_original):
         self.funcion_original = funcion_original
@@ -10,6 +10,18 @@ class VerificacionesDecorator:
         return self.funcion_original(*args, **kwargs)
 verificador = VerificacionesDecorator(None)
 cantidad_verificaciones = 0
+
+def guardar_verificaciones(verificaciones):
+    with open('verificaciones.txt', 'w') as file:
+        file.write(str(verificaciones))
+
+def leer_verificaciones():
+    try:
+        with open('verificaciones.txt', 'r') as file:
+            verificaciones = int(file.read())
+    except FileNotFoundError:
+        verificaciones = 1
+    return verificaciones
 
 
 def mostrar_verificar_vocales():
@@ -57,3 +69,4 @@ def mostrar_verificar_vocales():
     resultado2.pack()
 
     verificador = VerificacionesDecorator(verificar)
+    verificador.verificaciones = leer_verificaciones()
